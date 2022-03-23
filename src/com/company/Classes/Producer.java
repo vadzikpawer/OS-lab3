@@ -1,5 +1,7 @@
 package com.company.Classes;
 
+import com.company.Main;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ public class Producer implements Runnable {
     boolean exitFlag = false;
 
     public Producer() {
-        SharedQueue = new LinkedList<Number>();
+        SharedQueue = new LinkedList<>();
     }
 
     public Producer(LinkedList<Number> mainQueue, String threadName) {
@@ -42,7 +44,7 @@ public class Producer implements Runnable {
                 SharedQueue.notifyAll();
                 return;
             }
-            if (SharedQueue.size() < 100) {
+            if (SharedQueue.size() < Main.MAX_QUEUE_ELEMENTS) {
                 SharedQueue.add(random.nextInt(100));
                 SharedQueue.notifyAll();
                 return;

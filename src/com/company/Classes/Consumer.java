@@ -1,5 +1,7 @@
 package com.company.Classes;
 
+import com.company.Main;
+
 import java.util.LinkedList;
 
 public class Consumer implements Runnable {
@@ -8,7 +10,7 @@ public class Consumer implements Runnable {
     Boolean exitFlag = false;
 
     public Consumer() {
-        SharedQueue = new LinkedList<Number>();
+        SharedQueue = new LinkedList<>();
     }
 
     public Consumer(LinkedList<Number> mainQueue, String threadName) {
@@ -41,7 +43,7 @@ public class Consumer implements Runnable {
         synchronized (SharedQueue) {
             if (!SharedQueue.isEmpty()) {
                 SharedQueue.poll();
-                if (!exitFlag && SharedQueue.size() <= 80) {
+                if (!exitFlag && SharedQueue.size() <= Main.MIN_QUEUE_ELEMENTS) {
                     SharedQueue.notifyAll();
                 }
             }
